@@ -22,7 +22,7 @@ const resolvers = {
 
                 const resultData = response.data;
                 const convertedAmount = parseFloat(resultData.result);
-                console.log(resultData.query);
+                // console.log(resultData.query);
 
                 return {
                     convertFrom: resultData.query.from,
@@ -30,7 +30,7 @@ const resolvers = {
                     amount: convertedAmount,
                 };
             } catch (error) {
-                console.log(error);
+                console.log("REsolvers Error", error);
             }
         },
     },

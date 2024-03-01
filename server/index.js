@@ -1,6 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-
+import colors from "colors";
 import dotenv from "dotenv";
 
 import typeDefs from "./schemas/schema.js";
@@ -19,8 +19,11 @@ const port = process.env.PORT || 3303;
     server.applyMiddleware({ app });
 
     app.listen(port, () => {
-        console.log(`
+        console.log(
+            colors.yellow(`
     🚀 SERVER HAS LAUNCH ON PORT :: ${port}
-        `);
+    📈 GRAPHQL IS READY TO USE ON :: http://localhost:${port}/graphql
+        `)
+        );
     });
 })();
