@@ -3,6 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 
 import { GET_CONVERTED_CURRENCY_DETAILS } from "../queries/queries";
 import CURRENCIES from "../symbols/currencySymbols";
+import ConversionResult from "./ConversionResult";
 
 const CurrencyConverter = () => {
     const [convertFrom, setConvertFrom] = useState("EUR");
@@ -83,14 +84,7 @@ const CurrencyConverter = () => {
                     Convert
                 </button>
             </form>
-            {data ? (
-                <>
-                    {data.convertedResult.amountIn} {convertFrom} equals{" "}
-                    {data.convertedResult.amountOut} {convertTo}
-                </>
-            ) : (
-                <></>
-            )}
+            <ConversionResult data={data} />
         </>
     );
 };
