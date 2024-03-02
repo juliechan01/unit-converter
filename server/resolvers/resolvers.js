@@ -21,14 +21,13 @@ const resolvers = {
                 );
 
                 const resultData = response.data;
-                const confirmedAmountIn = parseFloat(resultData.query.amount);
+                const returnedAmountIn = parseFloat(resultData.query.amount);
                 const convertedAmount = parseFloat(resultData.result);
-                // console.log(resultData.query);
 
                 return {
                     convertFrom: resultData.query.from,
                     convertTo: resultData.query.to,
-                    amountIn: confirmedAmountIn,
+                    amountIn: returnedAmountIn, // the purpose of using this instead of the original amountIn is that the rendered vlue would not change each time user input new value but not select Convert
                     amountOut: convertedAmount,
                 };
             } catch (error) {

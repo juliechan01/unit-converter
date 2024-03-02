@@ -52,11 +52,13 @@ const CurrencyConverter = () => {
                 onSubmit={handleSubmit}
             >
                 <input
+                    className="py-1.5 px-3 border rounded-md bg-slate-500 text-stone-200"
                     type="number"
                     value={inputAmount}
                     onChange={(e) => setInputAmount(e.target.value)}
                 />
                 <select
+                    className="bg-slate-500 text-stone-200 py-2 px-3 rounded-md"
                     value={convertFrom}
                     onChange={(e) => setConvertFrom(e.target.value)}
                 >
@@ -68,6 +70,7 @@ const CurrencyConverter = () => {
                 </select>
                 <p>to</p>
                 <select
+                    className="bg-slate-500 text-stone-200 py-2 px-3 rounded-md"
                     value={convertTo}
                     onChange={(e) => setConvertTo(e.target.value)}
                 >
@@ -78,7 +81,7 @@ const CurrencyConverter = () => {
                     ))}
                 </select>
                 <button
-                    className="bg-slate-400 font-medium text-slate-50 px-3 py-2 rounded-md"
+                    className="bg-slate-500 font-medium text-stone-200 px-3 py-1.5 rounded-md"
                     type="submit"
                 >
                     Convert
