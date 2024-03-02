@@ -7,16 +7,22 @@ import CURRENCIES from "../symbols/currencySymbols";
 const CurrencyConverter = () => {
     const [convertFrom, setConvertFrom] = useState("EUR");
     const [convertTo, setConvertTo] = useState("USD");
-    const [amount, setAmount] = useState(1);
+    const [inputAmount, setInputAmount] = useState(1);
     const [resultData, setResultData] = useState({});
 
     const [getConvertedCurrencyDetails, { loading, error, data }] =
-        useLazyQuery(GET_CONVERTED_CURRENCY_DETAILS);
+        useLazyQuery(GET_CONVERTED_CURRENCY_DETAILS, {
+            // To assign value to setResultData() once it complete querying
+            onCompleted: (data) => {
+                setResultData(data);
+            },
+        });
 
     if (loading) {
         return <p>Loading........</p>;
     }
     if (error) {
+        console.log(error);
         return (
             <p>
                 Something went wron along the way.... SORRY for the
@@ -32,12 +38,12 @@ const CurrencyConverter = () => {
             variables: {
                 convertFrom,
                 convertTo,
-                amount,
+                amountIn: parseFloat(inputAmount),
             },
         });
     };
-    console.log(data);
 
+    console.log(resultData);
     return (
         <>
             <form
@@ -46,8 +52,8 @@ const CurrencyConverter = () => {
             >
                 <input
                     type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
+                    value={inputAmount}
+                    onChange={(e) => setInputAmount(e.target.value)}
                 />
                 <select
                     value={convertFrom}
@@ -79,8 +85,8 @@ const CurrencyConverter = () => {
             </form>
             {data ? (
                 <>
-                    {amount} {convertFrom} equals {data.convertedResult.amount}{" "}
-                    {convertTo}
+                    {data.convertedResult.amountIn} {convertFrom} equals{" "}
+                    {data.convertedResult.amountOut} {convertTo}
                 </>
             ) : (
                 <></>

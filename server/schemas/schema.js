@@ -5,14 +5,15 @@ const typeDefs = gql`
         convertedResult(
             convertFrom: String!
             convertTo: String!
-            amount: Float!
+            amountIn: Float!
         ): Result
     }
 
     type Result {
         convertFrom: String!
         convertTo: String!
-        amount: Float!
+        amountIn: Float!
+        amountOut: Float!
     }
 `;
 
