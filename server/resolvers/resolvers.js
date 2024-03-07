@@ -2,7 +2,7 @@ import axios from "axios";
 
 const resolvers = {
     Query: {
-        convertedResult: async (parent, { convertFrom, convertTo, amount }) => {
+        convertedResult: async (_, { convertFrom, convertTo, amountIn }) => {
             try {
                 const response = await axios.get(
                     "https://currency-conversion-and-exchange-rates.p.rapidapi.com/convert",
@@ -10,7 +10,7 @@ const resolvers = {
                         params: {
                             from: convertFrom,
                             to: convertTo,
-                            amount,
+                            amount: amountIn,
                         },
                         headers: {
                             "X-RapidAPI-Key": process.env.API_KEY,
@@ -21,18 +21,17 @@ const resolvers = {
                 );
 
                 const resultData = response.data;
-                // console.log(response.data);
-                console.log(resultData.result);
+                const returnedAmountIn = parseFloat(resultData.query.amount);
                 const convertedAmount = parseFloat(resultData.result);
-                console.log(resultData.query);
 
                 return {
                     convertFrom: resultData.query.from,
                     convertTo: resultData.query.to,
-                    amount: convertedAmount,
+                    amountIn: returnedAmountIn, // the purpose of using this instead of the original amountIn is that the rendered vlue would not change each time user input new value but not select Convert
+                    amountOut: convertedAmount,
                 };
             } catch (error) {
-                console.log(error);
+                console.log("REsolvers Error", error);
             }
         },
     },
